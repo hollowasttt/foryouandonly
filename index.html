@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>100 Things I Love About You</title>
+  
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      color: white;
+      overflow: hidden;
+      background-image: url('nightstar.png'); 
+      background-repeat: no-repeat;
+      background-position: center center;    
+      background-size: cover;                
+      background-attachment: fixed;          
+      min-height: 100%;                      
+      background-color: #04040c;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(4, 4, 12, 0.42), rgba(4, 4, 12, 0.58)),
+        radial-gradient(circle at center, rgba(255, 126, 179, 0.14), transparent 58%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      box-sizing: border-box;
+      padding: 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    button {
+      margin-top: 15px;
+      background: rgba(255, 214, 230, 0.14);
+      border: 1px solid rgba(255, 204, 224, 0.62);
+      color: white;
+      padding: 11px 24px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      border-radius: 999px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      box-shadow: 0 0 14px rgba(255, 126, 179, 0.16);
+      position: relative;
+      z-index: 5;
+      pointer-events: auto;
+    }
+
+    button:hover {
+      background: #ffe2ee;
+      color: #3c1223;
+      box-shadow: 0 0 20px rgba(255, 190, 217, 0.85);
+      transform: translateY(-2px);
+    }
+
+    #gate-screen {
+      z-index: 300000;
+      background: rgba(3, 3, 8, 0.76);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      pointer-events: auto;
+    }
+
+    .gate-box,
+    .countdown-card,
+    .box {
+      position: relative;
+      text-align: center;
+      background: rgba(18, 16, 30, 0.74);
+      border: 1px solid rgba(255, 220, 235, 0.22);
+      border-radius: 18px;
+      box-shadow:
+        0 10px 38px rgba(0, 0, 0, 0.55),
+        0 0 30px rgba(255, 126, 179, 0.14);
+      backdrop-filter: blur(14px);
+    }
+
+    .gate-box {
+      max-width: 540px;
+      width: min(88%, 540px);
+      padding: 42px 30px 36px;
+      overflow: hidden;
+      z-index: 300001;
+      pointer-events: auto;
+    }
+
+    .gate-box::before {
+      content: "♡";
+      position: absolute;
+      top: 16px;
+      left: 22px;
+      color: rgba(255, 207, 226, 0.48);
+      font-size: 34px;
+      pointer-events: none;
+    }
+
+    .gate-box::after {
+      content: "♡";
+      position: absolute;
+      right: 22px;
+      bottom: 14px;
+      color: rgba(255, 207, 226, 0.42);
+      font-size: 28px;
+      pointer-events: none;
+    }
+
+    .gate-title {
+      margin: 0 0 16px;
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #ffe3ee;
+      text-shadow: 0 0 18px rgba(255, 166, 203, 0.65);
+    }
+
+    .gate-message {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255, 245, 249, 0.86);
+    }
+
+    #proceedBtn {
+      margin-top: 30px;
+      border-color: rgba(255, 170, 207, 0.78);
+      z-index: 300002;
+      pointer-events: auto;
+    }
+
+    .countdown-card {
+      width: min(88%, 560px);
+      padding: 34px 28px 24px;
+    }
+
+    .tiny-label {
+      margin-bottom: 12px;
+      color: rgba(255, 211, 229, 0.78);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .countdown-title {
+      margin: 0;
+      font-weight: 300;
+      letter-spacing: 2px;
+      font-size: 25px;
+      color: #fff4f8;
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.28);
+    }
+
+    #countdown {
+      font-size: 34px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 18px 0 6px;
+      color: #ffd9e8;
+      text-shadow: 0 0 18px rgba(255, 126, 179, 0.55);
+    }
+
+    .countdown-whisper {
+      margin: 26px 0 0;
+      color: rgba(255, 235, 244, 0.22);
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 1.5;
+    }
+
+    #password-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 3, 8, 0.85); 
+      backdrop-filter: blur(8px);
+      display: flex; 
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; 
+    }
+
+    .box {
+      padding: 40px;
+    }
+
+    #passwordInput {
+      padding: 12px;
+      margin-top: 15px;
+      background: rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(255, 214, 230, 0.28);
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      display: block;
+      outline: none;
+      transition: border 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #passwordInput:focus {
+      border-color: rgba(255, 170, 207, 0.9);
+      box-shadow: 0 0 14px rgba(255, 126, 179, 0.25);
+    }
+
+    #intro-screen {
+      z-index: 50000;
+      background: rgba(3, 3, 8, 0.62);
+      backdrop-filter: blur(16px);
+      text-align: center;
+      transition: background 2.4s ease, backdrop-filter 2.4s ease, opacity 1.2s ease;
+    }
+
+    #intro-screen.intro-clearing #intro-text {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+    }
+
+    #intro-screen.intro-focus-out {
+      background: rgba(3, 3, 8, 0);
+      backdrop-filter: blur(0);
+    }
+
+    #intro-screen::before,
+    #intro-screen::after {
+      position: absolute;
+      color: rgba(255, 207, 226, 0.24);
+      text-shadow: 0 0 22px rgba(255, 126, 179, 0.42);
+      pointer-events: none;
+      animation: introHeartFloat 4s ease-in-out infinite;
+    }
+
+    #intro-screen::before {
+      content: "♡";
+      top: 17%;
+      left: 22%;
+      font-size: 54px;
+    }
+
+    #intro-screen::after {
+      content: "♡";
+      right: 21%;
+      bottom: 20%;
+      font-size: 38px;
+      animation-delay: 1s;
+    }
+
+    @keyframes introHeartFloat {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.22;
+      }
+
+      50% {
+        transform: translateY(-10px);
+        opacity: 0.42;
+      }
+    }
+
+    #intro-text {
+      width: min(900px, 92vw);
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 16px;
+      padding: 0 22px;
+      font-size: clamp(18px, 2.4vw, 26px);
+      font-weight: 300;
+      line-height: 1.45;
+      letter-spacing: 0.8px;
+      color: #fff8fb;
+      text-shadow:
+        0 0 14px rgba(255, 255, 255, 0.48),
+        0 0 32px rgba(255, 126, 179, 0.4),
+        0 0 64px rgba(255, 190, 217, 0.2);
+      opacity: 1;
+      transform: translateY(-8vh) scale(1);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .intro-line {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .type-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      margin-left: 7px;
+      background: #ffd9e8;
+      vertical-align: -0.12em;
+      box-shadow: 0 0 14px rgba(255, 126, 179, 0.78);
+      animation: cursorBlink 0.85s infinite;
+    }
+
+    @keyframes cursorBlink {
+      0%, 45% { opacity: 1; }
+      46%, 100% { opacity: 0; }
+    }
+
+    #main-screen h1,
+    #progress,
+    #sky {
+      transition: opacity 1.4s ease;
+    }
+
+    #main-screen.main-preparing h1,
+    #main-screen.main-preparing #progress,
+    #main-screen.main-preparing #sky {
+      opacity: 0;
+    }
+
+    #sky {
+      position: absolute;
+      inset: 0;
+      background: transparent; 
+      z-index: 5;
+    }
+
+    /* ===== NEW TIMER STYLES ===== */
+    .together-timer {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 20;
+      pointer-events: none;
+      width: 90%;
+      max-width: 520px;
+    }
+
+    .together-title {
+      font-size: 15px;
+      letter-spacing: 2.5px;
+      color: rgba(255, 230, 240, 0.78);
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .together-count {
+      font-size: 18px;
+      letter-spacing: 1.5px;
+      color: #ffe3ee;
+      text-shadow: 0 0 12px rgba(255, 126, 179, 0.45);
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .together-footer {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: rgba(255, 220, 235, 0.28);
+      font-style: italic;
+    }
+    /* ============================ */
+
+    .ambient-background-star {
+      position: absolute;
+      background: #ffffff !important;
+      border-radius: 50%;
+      pointer-events: none; 
+      z-index: 4; 
+      will-change: transform, opacity;
+    }
+
+    @keyframes ambientTwinkle {
+      0%, 100% {
+        opacity: 0.12;
+        transform: scale(0.6);
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.4);
+        box-shadow: 0 0 8px #ffffff, 0 0 16px #ff9fc7;
+      }
+    }
+
+    .shooting-star-particle {
+      position: absolute;
+      width: 110px; 
+      height: 2.5px; 
+      background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 207, 226, 0.7), rgba(255, 255, 255, 0));
+      pointer-events: none;
+      z-index: 3; 
+      opacity: 0;
+      transform-origin: left center; 
+      will-change: transform, opacity;
+      transition-property: transform, opacity;
+      transition-timing-function: linear;
+    }
+
+    .star {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #fff7fb;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white, 0 0 18px rgba(255, 159, 199, 0.65);
+      cursor: pointer;
+      transform: translate(-50%, -50%) scale(0); 
+      transform-origin: center center;
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s ease, opacity 0.3s ease; 
+      z-index: 10;
+      will-change: transform, opacity;
+      animation: heartReveal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes heartReveal {
+      to { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .star:hover {
+      transform: translate(-50%, -50%) scale(2.2) !important; 
+      box-shadow: 0 0 16px #fff, 0 0 30px #ffc2dc;
+      z-index: 999; 
+    }
+
+    .star.used {
+      opacity: 0.25;
+    }
+
+    #popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(18, 16, 30, 0.82);
+      padding: 36px 32px;
+      border: 1px solid rgba(255, 220, 235, 0.28);
+      border-radius: 18px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 10px 38px rgba(0, 0, 0, 0.62),
+        0 0 28px rgba(255, 126, 179, 0.18);
+      z-index: 10000; 
+      max-width: 430px;
+      width: 80%;
+      color: #fff8fb;
+    }
+
+    #popup::before {
+      content: "♡";
+      display: block;
+      margin-bottom: 10px;
+      color: #ffc8df;
+      font-size: 28px;
+      text-shadow: 0 0 14px rgba(255, 126, 179, 0.65);
+    }
+
+    #popup-text {
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .click-spark-particle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      box-shadow: 0 0 6px #fff, 0 0 12px #ff9fc7;
+      transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.6s ease-out;
+      will-change: transform, opacity;
+    }
+
+    .star.grand-final-star {
+      width: 24px !important;
+      height: 24px !important;
+      background: #ffffff !important;
+      box-shadow: 0 0 20px #ffffff, 0 0 40px #ff9fc7, 0 0 65px #ff9fc7 !important;
+      z-index: 99999 !important;
+      animation: finalStarPulse 2s infinite ease-in-out;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out, transform 0.2s ease !important;
+    }
+
+    @keyframes finalStarPulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 20px #ffffff, 0 0 40px #ff9fc7, 0 0 65px #ff9fc7;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.25);
+        box-shadow: 0 0 35px #ffffff, 0 0 70px #ff9fc7, 0 0 105px #ffecf2;
+      }
+    }
+
+    .star.grand-final-star:hover {
+      transform: translate(-50%, -50%) scale(1.5) !important;
+    }
+
+    .fade-out-titles {
+      opacity: 0 !important;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: none;
+    }
+
+    #final-screen {
+      background: #000;
+      backdrop-filter: none;
+      padding: 20px;
+      z-index: 100000;
+      overflow: hidden;
+    }
+
+    .final-heart-field {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .final-heart-field::before {
+      content: "♡";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: min(52vw, 430px);
+      color: rgba(255, 126, 179, 0.07);
+      text-shadow: 0 0 40px rgba(255, 126, 179, 0.22);
+      pointer-events: none;
+    }
+
+    #typewriter-container {
+      position: relative;
+      z-index: 5;
+      width: min(92vw, 850px);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .final-line {
+      margin-bottom: 26px;
+      font-size: clamp(18px, 2.7vw, 27px);
+      line-height: 1.65;
+      color: #fff8fb;
+      text-align: center;
+      text-shadow:
+        0 0 16px rgba(255, 255, 255, 0.3),
+        0 0 34px rgba(255, 126, 179, 0.28);
+    }
+
+    .final-reason-line {
+      font-size: clamp(25px, 4vw, 44px);
+      line-height: 1.25;
+      margin-top: 14px;
+      margin-bottom: 34px;
+    }
+
+    .final-reason-text {
+      font-family: "Brush Script MT", "Segoe Script", "Lucida Handwriting", cursive;
+      letter-spacing: 1px;
+      color: #ffe3ee;
+    }
+
+    .final-score {
+      font-size: clamp(25px, 4vw, 36px);
+      color: #ff9fc7;
+      font-weight: bold;
+      margin-top: 28px;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+      transform: translateY(10px);
+      text-shadow: 0 0 20px rgba(255,126,179,0.62);
+    }
+
+    .final-score.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-floating-heart {
+      position: absolute;
+      color: rgba(255, 126, 179, 0.24);
+      font-size: 24px;
+      pointer-events: none;
+      text-shadow: 0 0 20px rgba(255, 126, 179, 0.5);
+      animation: finalHeartFloat 8s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes finalHeartFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.12;
+      }
+
+      50% {
+        transform: translateY(-24px) scale(1.14);
+        opacity: 0.48;
+      }
+    }
+
+    .rainbow-you {
+      font-family: inherit;
+      font-weight: 900;
+      animation: youColorShift 2s linear infinite;
+      text-shadow: 0 0 18px currentColor;
+    }
+
+    @keyframes youColorShift {
+      0% { color: #ff7eb3; }
+      20% { color: #ffd166; }
+      40% { color: #7dd3fc; }
+      60% { color: #c084fc; }
+      80% { color: #86efac; }
+      100% { color: #ff7eb3; }
+    }
+
+    .clara-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .clara-fall {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--clara-size, 70px);
+      height: auto;
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+      transform-origin: center center;
+      filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55));
+      transition: opacity 0.8s ease;
+      will-change: transform, opacity;
+    }
+
+    .clara-fall.visible {
+      opacity: 0.92;
+    }
+
+    .made-with-love {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999999;
+      font-size: 14px;
+      color: rgba(255, 220, 235, 0.85);
+      letter-spacing: 1.5px;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(255, 126, 179, 0.4);
+    }
+
+    #secret-heart {
+      cursor: pointer;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      display: inline-block;
+      font-size: 18px;
+    }
+
+    #secret-heart:hover {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 12px #ff9fc7);
+    }
+
+    @media (max-width: 520px) {
+      .gate-title {
+        font-size: 25px;
+      }
+
+      .gate-message {
+        font-size: 15px;
+      }
+
+      .countdown-title {
+        font-size: 21px;
+      }
+
+      #countdown {
+        font-size: 28px;
+      }
+
+      #intro-text {
+        font-size: 21px;
+        min-height: 320px;
+        gap: 14px;
+        transform: translateY(-5vh) scale(1);
+      }
+
+      #main-screen h1 {
+        font-size: 23px !important;
+        text-align: center;
+        padding: 0 18px;
+      }
+
+      .final-line {
+        font-size: 18px;
+        margin-bottom: 22px;
+      }
+
+      .final-reason-line {
+        font-size: 31px;
+      }
+
+      .together-title {
+        font-size: 13px;
+      }
+
+      .together-count {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<audio id="loginMusic" src="Uwa.mp3" loop preload="auto"></audio>
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+<audio id="writingSound" src="writing.mp3" loop preload="auto"></audio>
+<audio id="starsMusic" src="stars.mp3" loop preload="auto"></audio>
+<audio id="omoriMusic" src="omori.mp3" loop preload="auto"></audio>
+
+<div id="gate-screen" class="screen">
+  <div class="gate-box">
+    <h1 class="gate-title">A Tiny Warning</h1>
+    <p class="gate-message">
+      This little universe was made for one very special heart.<br/>
+      Only the person who is loved, cherished, and truly worthy may enter.<br/>
+      If that is not you, please leave quietly and pretend you saw nothing.
+    </p>
+    <button id="proceedBtn" type="button">Proceed</button>
+  </div>
+</div>
+
+<div id="countdown-screen" class="screen hidden">
+  <div class="countdown-card">
+    <div class="tiny-label">Something special is waiting</div>
+    <h2 class="countdown-title">Counting down for a special day</h2>
+    <div id="countdown"></div>
+
+    <button id="enterBtn" class="hidden" type="button">Enter</button>
+    <button id="devBtn" type="button">Developer access</button>
+
+    <p class="countdown-whisper">ehehehe you have to wait a bit moreee</p>
+  </div>
+</div>
+
+<div id="password-overlay" class="hidden">
+  <div class="box">
+    <h3 style="margin: 0; font-weight: 400; letter-spacing: 1px;">Enter Code</h3>
+    <input id="passwordInput" type="password" placeholder="code..." />
+    <button id="unlockBtn" type="button">Unlock</button>
+    <p id="error" style="color: #ff7aa8; font-size: 13px; margin-top: 10px;"></p>
+    <p id="devMessage" style="color: rgba(255,255,255,0.55); font-size: 12px;"></p>
+  </div>
+</div>
+
+<div id="intro-screen" class="screen hidden">
+  <div id="intro-text"></div>
+</div>
+
+<div id="main-screen" class="screen hidden">
+  <!-- NEW TIMER -->
+  <div class="together-timer">
+    <div class="together-title">Since our paths intertwined.</div>
+    <div class="together-count" id="together-count">—</div>
+    <div class="together-footer">...and still counting.</div>
+  </div>
+
+  <h1 style="font-weight: 300; letter-spacing: 3px; font-size: 28px; margin-bottom: 5px; margin-top: 90px;">100 Things I Love About You</h1>
+  <div id="progress" style="font-size: 14px; letter-spacing: 2px; color: rgba(255,255,255,0.65); margin-bottom: 20px;">0 / 100</div>
+
+  <div id="sky"></div>
+
+  <div id="popup" class="hidden">
+    <div id="popup-text"></div>
+    <button id="nextBtn" type="button">Next</button>
+  </div>
+</div>
+
+<div id="final-screen" class="screen hidden">
+  <div id="final-text"></div>
+</div>
+
+<!-- Made with love footer -->
+<div class="made-with-love">Made with love <span id="secret-heart">❤️</span></div>
+
+<script src="script.js"></script>
+</body>
+</html>
