@@ -12,23 +12,117 @@ const claraItems = [];
 const CLARA_MAX_ON_SCREEN = 260;
 
 // ===== TOGETHER TIMER =====
-const togetherStart = new Date(2023, 11, 12, 18, 47, 0); // December 12, 2023 18:47
+const togetherStart = new Date(2023, 9, 27, 14, 41, 0); // October 27, 2023 14:41
 
-const reasons = [];
-for (let i = 1; i <= 100; i++) {
-  if (i === 1) reasons.push("Reason 1: You make me laugh every single day.");
-  else if (i === 2) reasons.push("Reason 2: The way you look at me when you smile.");
-  else if (i === 3) reasons.push("Reason 3: You are my absolute best friend.");
-  else if (i === 100) reasons.push("Because you are YOU."); 
-  else reasons.push(`Reason ${i}`); 
-}
+const reasons = [
+  "Reason 1: How you can make me feel loved and appreciated like it’s a normal thing to do.",
+  "Reason 2: How you can effortlessly make me smile and laugh.",
+  "Reason 3: How you can understand me like no one else.",
+  "Reason 4: How you can easily make me flatter.",
+  "Reason 5: How you can understand what’s going on with me even if I hide it.",
+  "Reason 6: How you can make me believe in love.",
+  "Reason 7: How you can never get tired of me",
+  "Reason 8: How you always find perfect words to say when I need them the most.",
+  "Reason 9: How you never give up on anything.",
+  "Reason 10: How you made me believe distance doesn’t ruin closeness.",
+  "Reason 11: The way you’re on my mind 24/7",
+  "Reason 12: The way you turn simple conversations into something memorable.",
+  "Reason 13: The way you tease me even if I complain about it.",
+  "Reason 14: The way you trust me.",
+  "Reason 15: The way you matter to me quietly and deeply.",
+  "Reason 16: The way you make me admire you and you only.",
+  "Reason 17: The way you call me yours.",
+  "Reason 18: The way how you make my mind chant for your name",
+  "Reason 19: The way how you make me comfortable",
+  "Reason 20: The way I can be myself without thinking twice when I’m with you.",
+  "Reason 21: When we have our late night dates",
+  "Reason 22: When you send me those sleepy xiao sticker to let me know that you woke up",
+  "Reason 23: When we talk about the most random thing ever when it’s past 3am",
+  "Reason 24: When you send me a post and thought about “us”",
+  "Reason 25: When you talk about our future together",
+  "Reason 26: When we always understand each other no matter what",
+  "Reason 27: When you got me phainon’s eidolon on your own when I didn’t even asked to",
+  "Reason 28: When you’re heh. (Shut up I like it and you already know it 💀)",
+  "Reason 29: When you are talking about skincare products with me, sounding very excited while I don’t understand %90 of it 💀",
+  "Reason 30: When we connect our brains and text or think about the same thing at the same time",
+  "Reason 31: Even if you are struggling to express yourself with words, you always find a way to show me how much you care.",
+  "Reason 32: Even when we have nothing to talk about, I still find it comforting to go through our old text messages",
+  "Reason 33: Even after everything we’ve been through, I’m still curious about what kind of future is ahead of us",
+  "Reason 34: Even if you’re having one of your weird and silly moments, I still enjoy it and find it very adorable",
+  "Reason 35: Even when I’m soft and vulnerable, you never take advantage of it",
+  "Reason 36: Even my enegry is low, you never make me feel like I have to match your energy",
+  "Reason 37: Even though you’re shy about speaking english with me, I’ll never forget how amazed I was when I heard you talk in english for the first time.",
+  "Reason 38: Even when we have different cultures, we always find a way to understand one and another",
+  "Reason 39: Even when you don’t know what to say to my text, just knowing that you saw my text is enough",
+  "Reason 40: Even when we talked for hours, I never feel like I’ve had enough of you",
+  "Reason 41: Whenever you ask my opinion when you get your nails done",
+  "Reason 42: Whenever you text to me about things even if it’s small",
+  "Reason 43: Whenever something reminds me about you in my daily life",
+  "Reason 44: Whenever you invade my dreams. (You’re always welcome 💀)",
+  "Reason 45: Whenever I encounter your posts when I’m scrolling on tiktok",
+  "Reason 46: Whenever you told me you missed me",
+  "Reason 47: Whenever we are watching something together. I enjoy it 10x more than I would if I watched it on my own",
+  "Reason 48: Whenever you remember something that I mentioned ages ago.",
+  "Reason 49: Whenever I wake up in the morning and seeing bunch of notifications from you on my phone",
+  "Reason 50: Whenever I’m drunk, you’re the first person that comes to my mind to tell you",
+  "Reason 51: I love how we made a spotify playlist together and chose specific songs that describe how we feel about each other",
+  "Reason 52: I love how we never need drama or problems to keep things interesting between us",
+  "Reason 53: I love how some turkish songs that I listen to remind me of you (I’m not gonna say which songs those are.)",
+  "Reason 54: I love how much you’ve changed my life for the better.",
+  "Reason 55: I love how we were just two strangers at first, and now look at us",
+  "Reason 56: I love how your notification popping up on my phone when I’m using if. It always lightens my day.",
+  "Reason 57: I love how you can multitask A LOT OF THINGS (yes I’m jealous.)",
+  "Reason 58: I love how we started to develop feelings for each other and we were both so confused about it",
+  "Reason 59: I love how you always try to guess things and get answers from me because of how curious you are",
+  "Reason 60: I love how being with you never feels repetitive.",
+  "Reason 61: Where you didn’t left me alone when I was drunk walking late at night trying to get to my dorm",
+  "Reason 62: Where you hate cute things but immediately become the cutest person ever if you’re happy enough, only to get disgusted by it afterwards.",
+  "Reason 63: Where we can both be weird without judging each other",
+  "Reason 64: Where we act like we are mad at each other as an rp",
+  "Reason 65: Where you can make me laugh even if I’m not in the mood",
+  "Reason 66: Where you checked up on me when I was all alone, overwhelmed and in a complete unfamiliar place",
+  "Reason 67: Where I can look back and still smile about something we did months ago like it was the first time",
+  "Reason 68: Where I wake up in the middle of the night texting with bunch of typos, and you still understand what I’m trying to say",
+  "Reason 69: Where you never make me feel like I’m being too much or I’m not enough",
+  "Reason 70: Where we didn’t wanted to sleep just to continue talking to each other",
+  "Reason 71: Knowing that I can trust you with anything no matter what",
+  "Reason 72: Knowing that our love for each other is mutual",
+  "Reason 73: Knowing that you chose me even if you hate all men",
+  "Reason 74: Knowing that you think about me as much as I think about you",
+  "Reason 75: Knowing that at some point, I became a very important part of your life",
+  "Reason 76: Knowing that the day we meet in real life, will be the day that I’m never ever gonna forget and always think about",
+  "Reason 77: Knowing that you’ve seen sides of me that most people never get to see",
+  "Reason 78: Knowing that I can make you happy just by being myself",
+  "Reason 79: Knowing that there are still so many memories that are waiting for us to create together",
+  "Reason 80: Knowing that someday, the distance we currently have will just be a memory.",
+  "Reason 81: For being patient with me",
+  "Reason 82: For every memories that we shared together even if it was just online",
+  "Reason 83: For being the most important person in my life",
+  "Reason 84: For accepting everything about me, even the things I don’t like about myself.",
+  "Reason 85: For making me feel like I’m always at home when we are texting together",
+  "Reason 86: For making me feel like I can always talk to you about something no matter how difficult it is to talk to",
+  "Reason 87: For showing me every side of yourself without a second thought",
+  "Reason 88: For how mad you got when you heard “that’s better. one less immigrant” after my visa declined",
+  "Reason 89: For just being there",
+  "Reason 90: For choosing to stay even if sometimes it was difficult",
+  "Reason 91: Because you make me want to be the best version of myself",
+  "Reason 92: Because you’re the person who keeps me going",
+  "Reason 93: Because you make me feel lucky to have found someone like you",
+  "Reason 94: Because you give me so many reasons to admire you",
+  "Reason 95: Because you are the person who I want to be with when I grow old",
+  "Reason 96: Because you care about me and make me feel seen",
+  "Reason 97: Because you make my life better.",
+  "Reason 98: Because you always put a smile on my face",
+  "Reason 99: Because you are special.",
+  "Reason 100: Because you are YOU."
+];
 
 const finalLetterLines = [
-  "Thank you for being a part of my life.",
+  "Thank you for being in my life.",
   "You always make my day every single time you text me, and I am forever grateful for it.",
   "I really hope you liked this site that I created only for you.",
   "Yours forever truly,<br/>Gökhan 'HollowAst'<br/>(Your babygirl, shut up.)",
-  "Happy Birthday!!!"
+  "HAPPY BIRTHDAYY!!!"
 ];
 
 const finalReasonLine = 'Reason 100: <span class="final-reason-text">Because you are <span class="rainbow-you">YOU</span></span>';
